@@ -23,6 +23,26 @@ import '@polymer/iron-selector/iron-selector.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import './my-icons.js';
 
+import {  library, icon, findIconDefinition } from '@fortawesome/fontawesome-svg-core';
+
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
+library.add(fas);
+const glasses = findIconDefinition({ prefix: 'fas', iconName: 'user' });
+
+const glassesIcon = icon(glasses, {
+  transform: {
+    size: 1,     // starts at 16 so make it half
+    x: 0,       // the same as left-4
+    y: 0,        // the same as up-6
+    rotate: 180,  // the same as rotate-90
+    flipX: true, // the same as flip-h
+    flipY: true  // the same as flip-v
+  }
+}).html;
+
+const templateIcons = html(glassesIcon);
+
 // Gesture events like tap and track generated from touch will not be
 // preventable, allowing for better scrolling performance.
 setPassiveTouchGestures(true);
@@ -71,8 +91,9 @@ class MyApp extends PolymerElement {
           color: black;
           font-weight: bold;
         }
+        
       </style>
-
+      
       <app-location route="{{route}}" url-space-regex="^[[rootPath]]">
       </app-location>
 
@@ -91,12 +112,15 @@ class MyApp extends PolymerElement {
         </app-drawer>
 
         <!-- Main content -->
+        
         <app-header-layout has-scrolling-region="">
 
           <app-header slot="header" condenses="" reveals="" effects="waterfall">
             <app-toolbar>
+            
+            
               <paper-icon-button icon="my-icons:menu" drawer-toggle=""></paper-icon-button>
-              <div main-title="">My App</div>
+              <div main-title="">My App ${templateIcons}</div>
             </app-toolbar>
           </app-header>
 
